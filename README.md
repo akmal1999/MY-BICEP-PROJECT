@@ -1,4 +1,4 @@
-Evaluation Project: Bicep
+Evaluation Project: Bicep (This could be reused for infrastracture deployment based on templates. You can change based on your requirement and add extra and deploy with ease Engjoy!)
 Objective
 
 This project is built based "Evaluation Project: Bicep Objective Establish a secure and scalable Azure environment tailored for a web application hosted on a Virtual Machine (VM), ensuring high availability, automated deployment, security, and monitoring. The setup must use Bicep for infrastructure definition and include both an Azure SQL Database and a Storage Account, with configurations and deployment processes documented and pushed to a public GitHub repository."
