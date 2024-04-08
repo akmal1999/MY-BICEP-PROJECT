@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourceGroupName": {
+      "value": "dev-webAppRG"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "vnetName": {
+      "value": "dev-webAppVNet"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.1.0.0/16"
+    },
+    "webSubnetPrefix": {
+      "value": "10.1.1.0/24"
+    },
+    "dbSubnetPrefix": {
+      "value": "10.1.2.0/24"
+    },
+    "vmName": {
+      "value": "dev-webAppVM"
+    },
+    "vmSize": {
+      "value": "Standard_DS1_v2"
+    },
+    "adminUsername": {
+      "value": "azureuser"
+    },
+    // Removed direct adminPassword parameter to use Key Vault instead
+    "keyVaultName": {
+      "value": "dev-myProjectKeyVault"
+    },
+    "adminPasswordSecretName": {
+      "value": "VmAdminPassword"
+    },
+    "sqlServerName": {
+      "value": "dev-webAppSqlServer"
+    },
+    "sqlDatabaseName": {
+      "value": "dev-webAppSqlDb"
+    },
+    "storageAccountName": {
+      "value": "devwebappstorage"
+    },
+    "nsgName": {
+      "value": "dev-webAppNSG"
+    }
+  }
+}

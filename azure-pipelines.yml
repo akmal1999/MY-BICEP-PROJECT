@@ -1,0 +1,28 @@
+trigger:
+  - main
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: "<Azure-Service-Connection-Name>" # Your Azure DevOps service connection to Azure
+      scriptType: "bash"
+      scriptLocation: "inlineScript"
+      inlineScript: |
+        # Log Azure CLI version
+        az --version
+
+        # Login to Azure using the Azure CLI
+        az login --identity
+
+        # Deploy using main.bicep as the template file
+        # Replace `./main.bicep` and `./parameters/dev.parameters.json` paths if your file structure is different
+        az deployment group create \
+          --name ExampleDeployment \
+          --resource-group $(resourceGroupName) \
+          --template-file ./main.bicep \
+          --parameters @./parameters/dev.parameters.json
+    env:
+      resourceGroupName: "yourResourceGroupName" # Define your resource group name here

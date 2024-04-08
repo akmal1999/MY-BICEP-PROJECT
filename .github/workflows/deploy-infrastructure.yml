@@ -1,0 +1,46 @@
+name: Deploy Azure Infrastructure
+
+# Trigger the workflow on push to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest # The type of runner that the job will run on
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      # Step 2: Log in to Azure
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }} # Your Azure service principal credentials, stored as a GitHub secret
+
+      # Step 3: Deploy Bicep templates
+      - name: Deploy Bicep template
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            # Install Bicep CLI - ensure the latest version is used for deployment
+            az bicep install
+
+            # Optional: Log installed Bicep version
+            az bicep version
+
+            # Deploy using the main Bicep file and the development parameters
+            # Ensure the correct paths are provided for your project structure
+            az deployment group create \
+              --name myInfrastructureDeployment \
+              --resource-group ${{ secrets.RESOURCE_GROUP_NAME }} \ # Resource group name stored as a GitHub secret
+              --template-file ./main.bicep \
+              --parameters @./parameters/dev.parameters.json
+
+      # Step 4: Azure logout (optional but recommended for security)
+      - name: Azure logout
+        run: az logout
